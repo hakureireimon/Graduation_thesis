@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\noctisye\\desktop\\finale\\graduation_thesis\\test\\source\\test\\test.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\noctisye\\desktop\\finale\\unrealengine\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\noctisye\\desktop\\finale\\graduation_thesis\\test\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\test\\definitions.test.h",
+            "c:\\users\\noctisye\\desktop\\finale\\graduation_thesis\\test\\source\\test\\test.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

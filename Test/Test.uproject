@@ -1,0 +1,22 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{40BEA3AA-44D3-B5BB-AC92-E5B1C518B368}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "Test",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		}
+	]
+}
