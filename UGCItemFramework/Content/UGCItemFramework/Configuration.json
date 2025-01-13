@@ -5,6 +5,7 @@
             "Name" : "TMTrainer",
             "Type" : "Passive",
             "Description" : "锟斤拷烫烫烫烫烫烫烫烫烫",
+            "Icon" : "TMTrainer.img",
             "Effects" : {
                 "1" : "TMTrainer"
             },
