@@ -1,0 +1,13 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{08494A99-47EE-84D7-E387-B7BEDA9BFDF7}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "UGCItemFramework",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
