@@ -10,8 +10,6 @@
 local M = UnLua.Class()
 local rapidjson = require("rapidjson")
 
-local OnConfigurationLoaded = UE.SimpleMulticastDelegate()
-
 -- function M:Initialize(Initializer)
 -- end
 
@@ -79,10 +77,7 @@ function M:ReceiveBeginPlay()
         _G._UGC.ItemPool = ItemPool
         _G._UGC.isConfigLoaded = true
     end
-
-    OnConfigurationLoaded:Broadcast()
 end
-
 
 -- function M:ReceiveEndPlay()
 -- end

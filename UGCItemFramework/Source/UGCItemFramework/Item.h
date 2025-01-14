@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Item.generated.h"
+
 UCLASS()
 class AItem : public AActor
 {
