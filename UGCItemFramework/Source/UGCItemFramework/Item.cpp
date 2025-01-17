@@ -11,9 +11,12 @@ AItem::AItem()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
 	SphereComponent->InitSphereRadius(100.0f);
 	RootComponent = SphereComponent;
+	RootComponent->SetupAttachment(MeshComponent);
+	MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void AItem::OnItemPickedUp()

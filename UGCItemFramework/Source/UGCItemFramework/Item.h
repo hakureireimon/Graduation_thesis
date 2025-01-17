@@ -30,6 +30,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
 	USphereComponent* SphereComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
+	UMeshComponent* MeshComponent;
 	
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void OnItemPickedUp();
