@@ -8,9 +8,14 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Item.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AUGCItemFrameworkCharacter
+
+DECLARE_MULTICAST_DELEGATE_TwoParams(GenerateItemDelegate, FVector, AItem)
+
+GenerateItemDelegate OnGenerateItem;
 
 AUGCItemFrameworkCharacter::AUGCItemFrameworkCharacter()
 {
