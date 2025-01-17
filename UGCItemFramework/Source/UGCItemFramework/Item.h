@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
 #include "Item.generated.h"
 
 UCLASS()
@@ -7,6 +10,7 @@ class AItem : public AActor
 {
 	GENERATED_BODY()
 public:
+	AItem();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Id;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
@@ -23,4 +27,14 @@ public:
 	FString Charge;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Condition;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
+	USphereComponent* SphereComponent;
+	
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void OnItemPickedUp();
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void OnItemDropped();
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void OnItemTriggered();
 };
