@@ -10,12 +10,12 @@ ItemEventDelegate EventOnItemTriggered;
 AItem::AItem()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
-	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
+	
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
 	SphereComponent->InitSphereRadius(100.0f);
 	RootComponent = SphereComponent;
-	RootComponent->SetupAttachment(MeshComponent);
+	MeshComponent->SetupAttachment(RootComponent);
 	MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
