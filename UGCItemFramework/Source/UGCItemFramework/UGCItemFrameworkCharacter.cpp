@@ -9,13 +9,10 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Item.h"
+#include "ItemManager.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AUGCItemFrameworkCharacter
-
-DECLARE_MULTICAST_DELEGATE_TwoParams(GenerateItemDelegate, FVector, AItem)
-
-GenerateItemDelegate OnGenerateItem;
 
 AUGCItemFrameworkCharacter::AUGCItemFrameworkCharacter()
 {
@@ -50,6 +47,17 @@ AUGCItemFrameworkCharacter::AUGCItemFrameworkCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+	UWorld* World = GetWorld();
+	if (World)
+	{
+		// Get the singleton instance of AItemManager
+		AItemManager* ItemManagerInstance = AItemManager::GetInstance(World);
+		if (ItemManagerInstance)
+		{
+			// Bind the delegate to the singleton instance's OnGenerateItemTriggered function
+			OnGenerateItem.AddUObject(ItemManagerInstance, &AItemManager::OnGenerateItemTriggered);
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -142,4 +150,9 @@ void AUGCItemFrameworkCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+void AUGCItemFrameworkCharacter::GenerateItemAtLocation(FVector Location)
+{
+	OnGenerateItem.Broadcast(Location);
 }

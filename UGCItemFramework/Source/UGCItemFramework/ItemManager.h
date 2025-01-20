@@ -6,6 +6,8 @@ UCLASS()
 class AItemManager : public AActor
 {
 	GENERATED_BODY()
+private:
+	static AItemManager* Instance;
 public:
 	AItemManager();
 	UPROPERTY(BlueprintReadOnly, Category = "ItemManager")
@@ -15,5 +17,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	AItem* GenerateErrorItem();
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
-	void OnGenerateItemTriggered();
+	void OnGenerateItemTriggered(FVector Location);
+
+	static AItemManager* GetInstance(UWorld* World);
 };
