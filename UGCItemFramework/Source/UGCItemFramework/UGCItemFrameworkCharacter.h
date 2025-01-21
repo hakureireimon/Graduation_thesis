@@ -36,6 +36,15 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void GenerateItemAtLocation(FVector Location);
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void OnFPressed();
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	bool GetLookAtLocation(FVector& LookAtLocation);
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	virtual void BeginPlay() override;
 protected:
 
 	/** Resets HMD orientation in VR. */

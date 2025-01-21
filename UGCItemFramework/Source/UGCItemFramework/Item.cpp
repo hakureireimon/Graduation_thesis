@@ -1,4 +1,5 @@
 ﻿#include "Item.h"
+#include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
 
 DECLARE_MULTICAST_DELEGATE(ItemEventDelegate)
@@ -17,6 +18,12 @@ AItem::AItem()
 	RootComponent = SphereComponent;
 	MeshComponent->SetupAttachment(RootComponent);
 	MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere"));
+	if (MeshAsset.Succeeded())
+	{
+		MeshComponent->SetStaticMesh(MeshAsset.Object);
+	}
 }
 
 void AItem::OnItemPickedUp()

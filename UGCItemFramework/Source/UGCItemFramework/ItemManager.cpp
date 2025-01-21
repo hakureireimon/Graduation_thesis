@@ -15,23 +15,25 @@ void AItemManager::AddItemToPool(AItem* Item)
 	return;
 }
 
-AItem* AItemManager::GenerateErrorItem()
+AItem* AItemManager::GenerateErrorItem(FVector Location)
 {
-	AItem* Item = NewObject<AItem>();
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return nullptr;
+	}
+	
+	AItem* Item = World->SpawnActor<AItem>(AItem::StaticClass(), Location, FRotator::ZeroRotator);
 	return Item;
 }
 
 void AItemManager::OnGenerateItemTriggered(FVector Location)
 {
-	AItem* NewItem = GenerateErrorItem();
-	AddItemToPool(NewItem);
-	UWorld* World = GetWorld();
-	if (!World)
+	AItem* NewItem = GenerateErrorItem(Location);
+	if (NewItem)
 	{
-		return;
+		AddItemToPool(NewItem);
 	}
-	World->SpawnActor<AItem>(NewItem->StaticClass(), Location, FRotator::ZeroRotator);
-	return;
 }
 
 AItemManager* AItemManager::GetInstance(UWorld* World)

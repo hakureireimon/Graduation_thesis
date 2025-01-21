@@ -9,6 +9,7 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Item.h"
+#include "DrawDebugHelpers.h"
 #include "ItemManager.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -47,14 +48,17 @@ AUGCItemFrameworkCharacter::AUGCItemFrameworkCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+}
+
+void AUGCItemFrameworkCharacter::BeginPlay()
+{
+	Super::BeginPlay();
 	UWorld* World = GetWorld();
 	if (World)
 	{
-		// Get the singleton instance of AItemManager
 		AItemManager* ItemManagerInstance = AItemManager::GetInstance(World);
 		if (ItemManagerInstance)
 		{
-			// Bind the delegate to the singleton instance's OnGenerateItemTriggered function
 			OnGenerateItem.AddUObject(ItemManagerInstance, &AItemManager::OnGenerateItemTriggered);
 		}
 	}
@@ -87,6 +91,8 @@ void AUGCItemFrameworkCharacter::SetupPlayerInputComponent(class UInputComponent
 
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AUGCItemFrameworkCharacter::OnResetVR);
+
+	PlayerInputComponent->BindAction("FKey", IE_Pressed, this, &AUGCItemFrameworkCharacter::OnFPressed);
 }
 
 
@@ -152,7 +158,41 @@ void AUGCItemFrameworkCharacter::MoveRight(float Value)
 	}
 }
 
+void AUGCItemFrameworkCharacter::OnFPressed()
+{
+	FVector LookAtLocation;
+	if (GetLookAtLocation(LookAtLocation))
+	{
+		GenerateItemAtLocation(LookAtLocation);
+	}
+}
+
 void AUGCItemFrameworkCharacter::GenerateItemAtLocation(FVector Location)
 {
 	OnGenerateItem.Broadcast(Location);
+}
+
+bool AUGCItemFrameworkCharacter::GetLookAtLocation(FVector& OutLookAtLocation)
+{
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+	{
+		FVector CameraLocation;
+		FRotator CameraRotation;
+		PlayerController->GetPlayerViewPoint(CameraLocation, CameraRotation);
+
+		FVector LookDirection = CameraRotation.Vector();
+		FVector TraceStart = CameraLocation;
+		FVector TraceEnd = TraceStart + (LookDirection * 10000.0f);
+
+		FHitResult HitResult;
+		FCollisionQueryParams TraceParams(FName(TEXT("")), false, this);
+		if (GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECC_Visibility, TraceParams))
+		{
+			DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Green, false, 1.0f, 0, 1.0f);
+			OutLookAtLocation = HitResult.Location;
+			return true;
+		}
+	}
+	return false;
 }
