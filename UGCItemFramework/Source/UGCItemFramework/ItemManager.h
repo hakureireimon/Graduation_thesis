@@ -18,6 +18,8 @@ public:
 	AItem* GenerateErrorItem(FVector Location);
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	void OnGenerateItemTriggered(FVector Location);
+	UFUNCTION(BlueprintCallable, Category = "ItemManager")
+	FUGCProperty GenerateRandomProperty();
 
 	static AItemManager* GetInstance(UWorld* World);
 };

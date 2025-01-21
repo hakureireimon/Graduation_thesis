@@ -26,6 +26,16 @@ AItem::AItem()
 	}
 }
 
+void AItem::SetUGCProperty(FUGCProperty Property)
+{
+	UGCProperty = Property;
+}
+
+FUGCProperty AItem::GetUGCProperty()
+{
+	return UGCProperty;
+}
+
 void AItem::OnItemPickedUp()
 {
 	EventOnItemPickedUp.Broadcast();

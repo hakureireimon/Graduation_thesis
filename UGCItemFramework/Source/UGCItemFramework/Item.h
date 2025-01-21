@@ -19,6 +19,11 @@ public:
 	USphereComponent* SphereComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
 	UStaticMeshComponent* MeshComponent;
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void SetUGCProperty(FUGCProperty Property);
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	FUGCProperty GetUGCProperty();
 	
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void OnItemPickedUp();

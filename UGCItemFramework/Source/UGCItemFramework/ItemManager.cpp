@@ -36,6 +36,12 @@ void AItemManager::OnGenerateItemTriggered(FVector Location)
 	}
 }
 
+FUGCProperty AItemManager::GenerateRandomProperty()
+{
+	// undone Generate Random Property OneByOne and return
+	return FUGCProperty();
+}
+
 AItemManager* AItemManager::GetInstance(UWorld* World)
 {
 	if (!Instance)
