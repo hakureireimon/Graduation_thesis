@@ -8,7 +8,7 @@ USTRUCT(BlueprintType)
 struct FUGCProperty 
 {
 	GENERATED_USTRUCT_BODY()
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Id;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
@@ -20,7 +20,7 @@ struct FUGCProperty
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Icon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	TMap<FString, FString> Effects;
+	FString Effect;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Charge;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
