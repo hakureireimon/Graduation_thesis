@@ -26,7 +26,7 @@ public:
 	FUGCProperty GetUGCProperty();
 	
 	UFUNCTION(BlueprintCallable, Category = "Item")
-	void OnItemPickedUp();
+	void OnItemPickedUp(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void OnItemDropped();
 	UFUNCTION(BlueprintCallable, Category = "Item")

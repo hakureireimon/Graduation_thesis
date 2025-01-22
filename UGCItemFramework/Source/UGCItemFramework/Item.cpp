@@ -1,8 +1,10 @@
 ﻿#include "Item.h"
+
+#include "UGCItemFrameworkCharacter.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
 
-DECLARE_MULTICAST_DELEGATE(ItemEventDelegate)
+DECLARE_MULTICAST_DELEGATE_OneParam(ItemEventDelegate, FString)
 
 ItemEventDelegate EventOnItemPickedUp;
 ItemEventDelegate EventOnItemDropped;
@@ -18,6 +20,8 @@ AItem::AItem()
 	RootComponent = SphereComponent;
 	MeshComponent->SetupAttachment(RootComponent);
 	MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	SphereComponent->SetCollisionProfileName(TEXT("Trigger"));
+	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AItem::OnItemPickedUp);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere"));
 	if (MeshAsset.Succeeded())
@@ -36,17 +40,25 @@ FUGCProperty AItem::GetUGCProperty()
 	return UGCProperty;
 }
 
-void AItem::OnItemPickedUp()
+void AItem::OnItemPickedUp(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	EventOnItemPickedUp.Broadcast();
+	AUGCItemFrameworkCharacter* Character = Cast<AUGCItemFrameworkCharacter>(OtherActor);
+	if (Character)
+	{
+		Character->AddItemToInventory(this);
+		
+		Destroy();
+		
+		EventOnItemPickedUp.Broadcast(GetUGCProperty().Id);
+	}
 }
 
 void AItem::OnItemDropped()
 {
-	EventOnItemDropped.Broadcast();
+	EventOnItemDropped.Broadcast(GetUGCProperty().Id);
 }
 
 void AItem::OnItemTriggered()
 {
-	EventOnItemTriggered.Broadcast();
+	EventOnItemTriggered.Broadcast(GetUGCProperty().Id);
 }

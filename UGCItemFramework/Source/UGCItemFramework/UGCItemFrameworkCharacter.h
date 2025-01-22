@@ -45,6 +45,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	virtual void BeginPlay() override;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Item")
+	TArray<AItem*> Inventory;
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void AddItemToInventory(AItem* Item);
 protected:
 
 	/** Resets HMD orientation in VR. */

@@ -196,3 +196,8 @@ bool AUGCItemFrameworkCharacter::GetLookAtLocation(FVector& OutLookAtLocation)
 	}
 	return false;
 }
+
+void AUGCItemFrameworkCharacter::AddItemToInventory(AItem* Item)
+{
+	Inventory.Add(Item);
+}
