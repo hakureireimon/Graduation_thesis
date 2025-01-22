@@ -26,6 +26,7 @@ void AItemManager::BeginPlay()
 
 void AItemManager::AddItemToPool(AItem* Item)
 {
+	ItemPool.Add(Item);
 	return;
 }
 
