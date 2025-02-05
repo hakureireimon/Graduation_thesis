@@ -39,6 +39,7 @@ AItem* AItemManager::GenerateErrorItem(FVector Location)
 	}
 	
 	AItem* Item = World->SpawnActor<AItem>(AItem::StaticClass(), Location, FRotator::ZeroRotator);
+	// Item->SetUGCProperty(GenerateRandomProperty());
 	return Item;
 }
 

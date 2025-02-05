@@ -51,6 +51,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void AddItemToInventory(AItem* Item);
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void ShowOrHideBag();
 protected:
 
 	/** Resets HMD orientation in VR. */

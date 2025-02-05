@@ -93,6 +93,8 @@ void AUGCItemFrameworkCharacter::SetupPlayerInputComponent(class UInputComponent
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AUGCItemFrameworkCharacter::OnResetVR);
 
 	PlayerInputComponent->BindAction("FKey", IE_Pressed, this, &AUGCItemFrameworkCharacter::OnFPressed);
+
+	PlayerInputComponent->BindAction("Bag", IE_Pressed, this, &AUGCItemFrameworkCharacter::ShowOrHideBag);
 }
 
 
@@ -200,4 +202,24 @@ bool AUGCItemFrameworkCharacter::GetLookAtLocation(FVector& OutLookAtLocation)
 void AUGCItemFrameworkCharacter::AddItemToInventory(AItem* Item)
 {
 	Inventory.Add(Item);
+}
+
+void AUGCItemFrameworkCharacter::ShowOrHideBag()
+{
+	UE_LOG(LogTemp, Log, TEXT("Inventory:"));
+	for (AItem* Item : Inventory)
+	{
+		if (Item)
+		{
+			const FUGCProperty& Property = Item->UGCProperty;
+			UE_LOG(LogTemp, Log, TEXT("Item ID: %s"), *Property.Id);
+			UE_LOG(LogTemp, Log, TEXT("Name: %s"), *Property.Name);
+			UE_LOG(LogTemp, Log, TEXT("Type: %s"), *Property.Type);
+			UE_LOG(LogTemp, Log, TEXT("Description: %s"), *Property.Description);
+			UE_LOG(LogTemp, Log, TEXT("Icon: %s"), *Property.Icon);
+			UE_LOG(LogTemp, Log, TEXT("Effect: %s"), *Property.Effect);
+			UE_LOG(LogTemp, Log, TEXT("Charge: %s"), *Property.Charge);
+			UE_LOG(LogTemp, Log, TEXT("Condition: %s"), *Property.Condition);
+		}
+	}
 }
