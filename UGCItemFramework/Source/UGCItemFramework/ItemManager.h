@@ -15,6 +15,8 @@ public:
 	AItemManager();
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	virtual void BeginPlay() override;
+	UFUNCTION(BlueprintCallable, Category = "ItemManager")
+	virtual void EndPlay(EEndPlayReason::Type EndPlayReason) override;
 	UPROPERTY(BlueprintReadOnly, Category = "ItemManager")
 	TArray<AItem*> ItemPool;
 	UPROPERTY(BlueprintReadOnly, Category = "ItemManager")

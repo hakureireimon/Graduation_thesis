@@ -24,6 +24,16 @@ void AItemManager::BeginPlay()
 	}
 }
 
+void AItemManager::EndPlay(EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	if (Instance)
+	{
+		Instance->Destroy();
+		Instance = nullptr;
+	}
+}
+
 void AItemManager::AddItemToPool(AItem* Item)
 {
 	ItemPool.Add(Item);
@@ -39,7 +49,7 @@ AItem* AItemManager::GenerateErrorItem(FVector Location)
 	}
 	
 	AItem* Item = World->SpawnActor<AItem>(AItem::StaticClass(), Location, FRotator::ZeroRotator);
-	// Item->SetUGCProperty(GenerateRandomProperty());
+	Item->SetUGCProperty(GenerateRandomProperty());
 	return Item;
 }
 
@@ -99,13 +109,13 @@ FUGCProperty AItemManager::GenerateRandomProperty()
 FString AItemManager::GetRandomCondition(uint32 RandNumber)
 {
 	RandActionCount++;
-	return Conditions[(RandNumber^2 + RandActionCount * RandNumber) % Conditions.Num()];
+	return "Null";
 }
 
 FString AItemManager::GetRandomEffect(uint32 RandNumber)
 {
 	RandActionCount++;
-	return Effects[(RandNumber^2 + RandActionCount * RandNumber) % Effects.Num()];
+	return "Null";
 }
 
 AItemManager* AItemManager::GetInstance(UWorld* World)
