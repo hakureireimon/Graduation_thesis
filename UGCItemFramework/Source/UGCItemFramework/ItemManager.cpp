@@ -65,14 +65,19 @@ void AItemManager::OnGenerateItemTriggered(FVector Location)
 uint32 AItemManager::GenerateWithSeed()
 {
 	RandActionCount++;
-	uint32 RandNumber = 0;
-	while((RandNumber & 0x80000000) != 0x80000000)
-	{
-		RandNumber = RandNumber * 2 + Seed * RandActionCount;
-	}
-	return RandNumber;
+	return GenerateRandomNumber();
 }
 
+uint32 AItemManager::GenerateRandomNumber()
+{
+	// Xorshift 算法
+	uint32 x = Seed;
+	x ^= x << 13;
+	x ^= x >> 17;
+	x ^= x << 5;
+	Seed = x;
+	return x;
+}
 
 FUGCProperty AItemManager::GenerateRandomProperty()
 {
@@ -86,12 +91,12 @@ FUGCProperty AItemManager::GenerateRandomProperty()
 	if ((RandomNumber & 0x1) == 1)
 	{
 		Type = "Active";
-		Charge = LexToString(RandomNumber & 0x7 + 1);
+		Charge = LexToString((RandomNumber & 0x7) + 1);
 	}
 	else
 	{
 		Type = "Passive";
-		Condition = GetRandomCondition(RandomNumber & 0x7 + 1);
+		Condition = GetRandomCondition((RandomNumber & 0x7) + 1);
 	}
 	Effect = GetRandomEffect(RandomNumber & 0xf + 1);
 	FUGCProperty RandomProperty = FUGCProperty();

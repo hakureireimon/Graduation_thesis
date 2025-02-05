@@ -33,6 +33,7 @@ public:
 	FUGCProperty GenerateRandomProperty();
 
 	uint32 GenerateWithSeed();
+	uint32 GenerateRandomNumber();
 	FString GetRandomCondition(uint32 RandomNumber);
 	FString GetRandomEffect(uint32 RandomNumber);
 	
