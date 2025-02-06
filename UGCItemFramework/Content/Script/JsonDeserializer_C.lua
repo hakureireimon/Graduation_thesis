@@ -36,7 +36,44 @@ function AddItemToPool(Id, Name, Type, Description, Icon, Effects, Charge, Condi
     ItemPool[Id] = Item
 end
 
+local itemManagerClass = UE.AItemManager
+
+function M:OnItemManagerCreated()
+    local World = self:GetWorld()
+    local itemManagerInstance = UE.UGameplayStatics.GetActorOfClass(World, itemManagerClass)
+    if itemManagerInstance then
+        print("Found AItemManager instance: ", itemManagerInstance)
+
+        for _, Effect in pairs(EffectsList) do
+            print("Adding Effect: ", Effect)
+            itemManagerInstance:AddEffect(Effect)
+        end
+        for _, Condition in pairs(ConditionList) do
+            print("Adding Condition: ", Condition)
+            itemManagerInstance:AddCondition(Condition)
+        end
+    else
+        print("AItemManager instance not found")
+        self:DelayFunc(0.1)
+    end
+end
+
+function M:CheckForItemManager()
+    self:OnItemManagerCreated()
+end
+
+function M:DelayFunc(duration)
+    coroutine.resume(coroutine.create(
+        function(WorldContextObject, duration)
+            UE.UKismetSystemLibrary.Delay(WorldContextObject, duration)
+            WorldContextObject:CheckForItemManager()
+        end
+    ), self, duration)
+end
+
 function M:ReceiveBeginPlay()
+    self:CheckForItemManager()
+
     local JsonData = io.open(TargetPath, "r")
     if JsonData then
         local JsonString = JsonData:read("*a")
@@ -64,33 +101,12 @@ function M:ReceiveBeginPlay()
                         table.insert(EffectsList, value)
                     end
                 end
-                if not Condition then
+                if not ConditionList[Condition] then
                     table.insert(ConditionList, Condition)
                 end
             end
         end
     end
-    local itemManagerClass = UE.AItemManager
-
-    local function OnItemManagerCreated()
-        local itemManagerInstance = itemManagerClass.GetInstance()
-        if itemManagerInstance then
-            print("Found AItemManager instance: ", itemManagerInstance)
-
-            for _, Effect in pairs(EffectsList) do
-                itemManagerInstance:AddEffect(Effect)
-            end
-            for _, Condition in pairs(ConditionList) do
-                itemManagerInstance:AddCondition(Condition)
-            end
-
-            itemManagerClass.OnItemManagerCreated:Remove(OnItemManagerCreated)
-        else
-            print("AItemManager instance not found")
-        end
-    end
-
-    itemManagerClass.OnItemManagerCreated:Add(OnItemManagerCreated)
 end
 
 -- function M:ReceiveEndPlay()

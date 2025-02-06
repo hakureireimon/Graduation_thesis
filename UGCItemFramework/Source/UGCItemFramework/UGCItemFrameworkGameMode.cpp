@@ -3,6 +3,7 @@
 #include "UGCItemFrameworkGameMode.h"
 #include "UGCItemFrameworkCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "ItemManager.h"
 
 AUGCItemFrameworkGameMode::AUGCItemFrameworkGameMode()
 {
@@ -12,4 +13,9 @@ AUGCItemFrameworkGameMode::AUGCItemFrameworkGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+}
+
+void AUGCItemFrameworkGameMode::BeginPlay()
+{
+	Super::BeginPlay();
 }

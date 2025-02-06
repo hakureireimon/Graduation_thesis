@@ -13,6 +13,7 @@ class AUGCItemFrameworkGameMode : public AGameModeBase
 
 public:
 	AUGCItemFrameworkGameMode();
+	virtual void BeginPlay() override;
 };
 
 

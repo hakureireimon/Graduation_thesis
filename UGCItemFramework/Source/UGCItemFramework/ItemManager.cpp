@@ -1,9 +1,7 @@
 ﻿#include "ItemManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "UGCItemFrameworkCharacter.h"
-
-AItemManager* AItemManager::Instance = nullptr;
-FOnItemManagerCreated AItemManager::OnItemManagerCreated;
+#include "UGCItemFrameworkCharacter.h"
 
 AItemManager::AItemManager()
 {
@@ -22,16 +20,6 @@ void AItemManager::BeginPlay()
 	while(Seed == 0)
 	{
 		Seed = FMath::Rand();
-	}
-}
-
-void AItemManager::EndPlay(EEndPlayReason::Type EndPlayReason)
-{
-	Super::EndPlay(EndPlayReason);
-	if (Instance)
-	{
-		Instance->Destroy();
-		Instance = nullptr;
 	}
 }
 
@@ -124,16 +112,6 @@ FString AItemManager::GetRandomEffect(uint32 RandNumber)
 	RandActionCount++;
 	uint32 Index = (RandNumber ^ 2 + RandActionCount * RandNumber) % Effects.Num();
 	return Effects[Index];
-}
-
-AItemManager* AItemManager::GetInstance(UWorld* World)
-{
-	if (!Instance)
-	{
-		Instance = World->SpawnActor<AItemManager>();
-		OnItemManagerCreated.Broadcast();
-	}
-	return Instance;
 }
 
 void AItemManager::AddEffect(FString Effect)

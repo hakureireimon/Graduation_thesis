@@ -10,18 +10,16 @@ class AItemManager : public AActor
 {
 	GENERATED_BODY()
 private:
-	static AItemManager* Instance;
 	uint32 Seed;
 	int32 ErrorItemCount;
 	int32 RandActionCount;
 public:
-	static FOnItemManagerCreated OnItemManagerCreated;
+	UPROPERTY(BlueprintAssignable, Category = "ItemManager")
+	FOnItemManagerCreated OnItemManagerCreated;
 	
 	AItemManager();
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	virtual void BeginPlay() override;
-	UFUNCTION(BlueprintCallable, Category = "ItemManager")
-	virtual void EndPlay(EEndPlayReason::Type EndPlayReason) override;
 	UPROPERTY(BlueprintReadOnly, Category = "ItemManager")
 	TArray<AItem*> ItemPool;
 	UPROPERTY(BlueprintReadOnly, Category = "ItemManager")
@@ -45,6 +43,4 @@ public:
 	uint32 GenerateRandomNumber();
 	FString GetRandomCondition(uint32 RandomNumber);
 	FString GetRandomEffect(uint32 RandomNumber);
-	
-	static AItemManager* GetInstance(UWorld* World);
 };

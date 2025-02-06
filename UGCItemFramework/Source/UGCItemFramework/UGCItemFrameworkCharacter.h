@@ -7,7 +7,7 @@
 #include "Item.h"
 #include "UGCItemFrameworkCharacter.generated.h"
 
-DECLARE_MULTICAST_DELEGATE_OneParam(GenerateItemDelegate, FVector);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGenerateItemDelegate, FVector, Location);
 
 UCLASS(config=Game)
 class AUGCItemFrameworkCharacter : public ACharacter
@@ -31,8 +31,9 @@ public:
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
-	
-	GenerateItemDelegate OnGenerateItem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FGenerateItemDelegate OnGenerateItem;
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void GenerateItemAtLocation(FVector Location);
@@ -54,6 +55,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void ShowOrHideBag();
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void OnItemManagerCreated();
 protected:
 
 	/** Resets HMD orientation in VR. */

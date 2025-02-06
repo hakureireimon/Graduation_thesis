@@ -11,6 +11,7 @@
 #include "Item.h"
 #include "DrawDebugHelpers.h"
 #include "ItemManager.h"
+#include "Kismet/GameplayStatics.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AUGCItemFrameworkCharacter
@@ -53,16 +54,26 @@ AUGCItemFrameworkCharacter::AUGCItemFrameworkCharacter()
 void AUGCItemFrameworkCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	UWorld* World = GetWorld();
-	if (World)
+	FActorSpawnParameters SpawnParams;
+	GetWorld()->SpawnActor<AItemManager>(AItemManager::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+	AItemManager* ItemManager = Cast<AItemManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AItemManager::StaticClass()));
+	if (ItemManager)
 	{
-		AItemManager* ItemManagerInstance = AItemManager::GetInstance(World);
-		if (ItemManagerInstance)
-		{
-			OnGenerateItem.AddUObject(ItemManagerInstance, &AItemManager::OnGenerateItemTriggered);
-		}
+		ItemManager->OnItemManagerCreated.AddDynamic(this, &AUGCItemFrameworkCharacter::OnItemManagerCreated);
 	}
+	ItemManager->OnItemManagerCreated.Broadcast();
 }
+
+void AUGCItemFrameworkCharacter::OnItemManagerCreated()
+{
+	AItemManager* ItemManager = Cast<AItemManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AItemManager::StaticClass()));
+	if (ItemManager)
+	{
+		OnGenerateItem.AddDynamic(ItemManager, &AItemManager::OnGenerateItemTriggered);
+	}
+	UE_LOG(LogTemp, Warning, TEXT("ItemManager has been created and bound to Character."));
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 // Input
