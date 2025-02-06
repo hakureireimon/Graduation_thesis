@@ -3,6 +3,7 @@
 #include "UGCItemFrameworkCharacter.h"
 
 AItemManager* AItemManager::Instance = nullptr;
+FOnItemManagerCreated AItemManager::OnItemManagerCreated;
 
 AItemManager::AItemManager()
 {
@@ -114,13 +115,15 @@ FUGCProperty AItemManager::GenerateRandomProperty()
 FString AItemManager::GetRandomCondition(uint32 RandNumber)
 {
 	RandActionCount++;
-	return "Null";
+	uint32 Index = (RandNumber ^ 2 + RandActionCount * RandNumber) % Conditions.Num();
+	return Conditions[Index];
 }
 
 FString AItemManager::GetRandomEffect(uint32 RandNumber)
 {
 	RandActionCount++;
-	return "Null";
+	uint32 Index = (RandNumber ^ 2 + RandActionCount * RandNumber) % Effects.Num();
+	return Effects[Index];
 }
 
 AItemManager* AItemManager::GetInstance(UWorld* World)
@@ -128,6 +131,17 @@ AItemManager* AItemManager::GetInstance(UWorld* World)
 	if (!Instance)
 	{
 		Instance = World->SpawnActor<AItemManager>();
+		OnItemManagerCreated.Broadcast();
 	}
 	return Instance;
+}
+
+void AItemManager::AddEffect(FString Effect)
+{
+	Effects.Add(Effect);
+}
+
+void AItemManager::AddCondition(FString Condition)
+{
+	Conditions.Add(Condition);
 }

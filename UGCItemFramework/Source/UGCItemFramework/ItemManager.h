@@ -2,6 +2,9 @@
 
 #include "Item.h"
 #include "ItemManager.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemManagerCreated);
+
 UCLASS()
 class AItemManager : public AActor
 {
@@ -12,6 +15,8 @@ private:
 	int32 ErrorItemCount;
 	int32 RandActionCount;
 public:
+	static FOnItemManagerCreated OnItemManagerCreated;
+	
 	AItemManager();
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	virtual void BeginPlay() override;
@@ -31,6 +36,10 @@ public:
 	void OnGenerateItemTriggered(FVector Location);
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	FUGCProperty GenerateRandomProperty();
+	UFUNCTION(BlueprintCallable, Category = "ItemManager")
+	void AddEffect(FString Effect);
+	UFUNCTION(BlueprintCallable, Category = "ItemManager")
+	void AddCondition(FString Condition);
 
 	uint32 GenerateWithSeed();
 	uint32 GenerateRandomNumber();

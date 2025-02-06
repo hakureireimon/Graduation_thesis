@@ -20,6 +20,7 @@ local RelativePath = debug.getinfo(1, "S").source
 local TargetPath = string.gsub(RelativePath, "Script/JsonDeserializer_C.lua", "UGCItemFramework/Configuration.json")
 
 local EffectsList = {}
+local ConditionList = {}
 local ItemPool = {}
 
 function AddItemToPool(Id, Name, Type, Description, Icon, Effects, Charge, Condition)
@@ -63,20 +64,33 @@ function M:ReceiveBeginPlay()
                         table.insert(EffectsList, value)
                     end
                 end
+                if not Condition then
+                    table.insert(ConditionList, Condition)
+                end
             end
         end
     end
+    local itemManagerClass = UE.AItemManager
 
-    if not _G._UGC then
-        _G._UGC = {}
-        _G._UGC.EffectsList = EffectsList
-        _G._UGC.ItemPool = ItemPool
-        _G._UGC.isConfigLoaded = true
-    else
-        _G._UGC.EffectsList = EffectsList
-        _G._UGC.ItemPool = ItemPool
-        _G._UGC.isConfigLoaded = true
+    local function OnItemManagerCreated()
+        local itemManagerInstance = itemManagerClass.GetInstance()
+        if itemManagerInstance then
+            print("Found AItemManager instance: ", itemManagerInstance)
+
+            for _, Effect in pairs(EffectsList) do
+                itemManagerInstance:AddEffect(Effect)
+            end
+            for _, Condition in pairs(ConditionList) do
+                itemManagerInstance:AddCondition(Condition)
+            end
+
+            itemManagerClass.OnItemManagerCreated:Remove(OnItemManagerCreated)
+        else
+            print("AItemManager instance not found")
+        end
     end
+
+    itemManagerClass.OnItemManagerCreated:Add(OnItemManagerCreated)
 end
 
 -- function M:ReceiveEndPlay()
