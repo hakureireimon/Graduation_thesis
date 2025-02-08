@@ -2,6 +2,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "UGCItemFrameworkCharacter.h"
 #include "UGCItemFrameworkCharacter.h"
+#include "EffectManager.h"
 
 AItemManager::AItemManager()
 {
@@ -39,6 +40,8 @@ AItem* AItemManager::GenerateErrorItem(FVector Location)
 	
 	AItem* Item = World->SpawnActor<AItem>(AItem::StaticClass(), Location, FRotator::ZeroRotator);
 	Item->SetUGCProperty(GenerateRandomProperty());
+	AEffectManager* EffectManager = Cast<AEffectManager>(UGameplayStatics::GetActorOfClass(World, AEffectManager::StaticClass()));
+	EffectManager->SendSignal("OnGenerateItem");
 	return Item;
 }
 
@@ -96,7 +99,7 @@ FUGCProperty AItemManager::GenerateRandomProperty()
 	RandomProperty.Icon = "Error Item";
 	RandomProperty.Charge = Charge;
 	RandomProperty.Condition = Condition;
-	RandomProperty.Effect = Effect;
+	RandomProperty.Effects.Add(Effect);
 	return RandomProperty;
 }
 

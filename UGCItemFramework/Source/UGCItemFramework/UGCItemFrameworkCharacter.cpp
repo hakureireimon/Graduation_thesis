@@ -228,7 +228,10 @@ void AUGCItemFrameworkCharacter::ShowOrHideBag()
 			UE_LOG(LogTemp, Log, TEXT("Type: %s"), *Property.Type);
 			UE_LOG(LogTemp, Log, TEXT("Description: %s"), *Property.Description);
 			UE_LOG(LogTemp, Log, TEXT("Icon: %s"), *Property.Icon);
-			UE_LOG(LogTemp, Log, TEXT("Effect: %s"), *Property.Effect);
+			for(FString Effect : Property.Effects)
+			{
+				UE_LOG(LogTemp, Log, TEXT("Effect: %s"), *Effect);
+			}
 			UE_LOG(LogTemp, Log, TEXT("Charge: %s"), *Property.Charge);
 			UE_LOG(LogTemp, Log, TEXT("Condition: %s"), *Property.Condition);
 		}

@@ -20,7 +20,7 @@ struct FUGCProperty
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Icon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	FString Effect;
+	TArray<FString> Effects;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Charge;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")

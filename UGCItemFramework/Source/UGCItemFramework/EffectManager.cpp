@@ -6,24 +6,26 @@
 void AEffectManager::BeginPlay()
 {
 	Super::BeginPlay();
-	GetWorld()->SpawnActor<AEffectManager>(AEffectManager::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
 }
 
 void AEffectManager::RegisterItem(AItem* Item)
 {
 	if (Item)
 	{
-		ConditionAndEffectMap.Add(Item->GetUGCProperty().Condition, Item->GetUGCProperty().Effect);
+		for(auto& Effect : Item->GetUGCProperty().Effects)
+		{
+			ConditionAndEffectMap.Add(Item->GetUGCProperty().Condition, Effect);	
+		}
 	}
 }
 
 void AEffectManager::SendSignal(FString Signal)
 {
-	for(auto& Pair : ConditionAndEffectMap)
+	for(TMultiMap<FString, FString>::TIterator It(ConditionAndEffectMap); It; ++It)
 	{
-		if (Pair.Key == Signal)
+		if (It.Key() == Signal)
 		{
-			this->ApplyEffect(Pair.Value);
+			this->ApplyEffect(It.Value());
 		}
 	}
 }
