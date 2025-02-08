@@ -3,6 +3,9 @@
 #include "UGCItemFrameworkCharacter.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
+#include "EffectManager.h"
+#include "Kismet/GameplayStatics.h"
 
 DECLARE_MULTICAST_DELEGATE_OneParam(ItemEventDelegate, FString)
 
@@ -46,7 +49,12 @@ void AItem::OnItemPickedUp(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 	if (Character)
 	{
 		Character->AddItemToInventory(this);
-		
+
+		AEffectManager* EffectManager = Cast<AEffectManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AEffectManager::StaticClass()));
+		if (EffectManager)
+		{
+			EffectManager->RegisterItem(this);
+		}
 		Destroy();
 		
 		EventOnItemPickedUp.Broadcast(GetUGCProperty().Id);
