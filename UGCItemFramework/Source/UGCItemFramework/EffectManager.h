@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "Item.h"
-#include "Chaos/Pair.h"
+#include "UnLuaInterface.h"
 #include "EffectManager.generated.h"
 
 UCLASS()
-class AEffectManager : public AActor
+class AEffectManager : public AActor, public IUnLuaInterface
 {
 	GENERATED_BODY()
 public:
