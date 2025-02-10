@@ -23,15 +23,13 @@ local EffectsList = {}
 local ConditionList = {}
 local ItemPool = {}
 
-function AddItemToPool(Id, Name, Type, Description, Icon, Effects, Charge, Condition)
+function AddItemToPool(Id, Name, Description, Icon, Effects, Condition)
     local Item = {}
     Item.Id = Id
     Item.Name = Name
-    Item.Type = Type
     Item.Description = Description
     Item.Icon = Icon
     Item.Effects = Effects
-    Item.Charge = Charge
     Item.Condition = Condition
     ItemPool[Id] = Item
 end
@@ -89,13 +87,11 @@ function M:ReceiveBeginPlay()
             for _, Item in ipairs(data.Items) do
                 local Id = Item.Id
                 local Name = Item.Name
-                local Type = Item.Type
                 local Description = Item.Description
                 local Icon = Item.Icon
                 local Effects = Item.Effects
-                local Charge = Item.Charge
                 local Condition = Item.Condition
-                AddItemToPool(Id, Name, Type, Description, Icon, Effects, Charge, Condition)
+                AddItemToPool(Id, Name, Description, Icon, Effects, Condition)
                 for _, value in pairs(Effects) do
                     if not EffectsList[value] then
                         table.insert(EffectsList, value)
