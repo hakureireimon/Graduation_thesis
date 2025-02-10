@@ -227,14 +227,12 @@ void AUGCItemFrameworkCharacter::ShowOrHideBag()
 			const FUGCProperty& Property = Item->UGCProperty;
 			UE_LOG(LogTemp, Log, TEXT("Item ID: %s"), *Property.Id);
 			UE_LOG(LogTemp, Log, TEXT("Name: %s"), *Property.Name);
-			UE_LOG(LogTemp, Log, TEXT("Type: %s"), *Property.Type);
 			UE_LOG(LogTemp, Log, TEXT("Description: %s"), *Property.Description);
 			UE_LOG(LogTemp, Log, TEXT("Icon: %s"), *Property.Icon);
 			for(FString Effect : Property.Effects)
 			{
 				UE_LOG(LogTemp, Log, TEXT("Effect: %s"), *Effect);
 			}
-			UE_LOG(LogTemp, Log, TEXT("Charge: %s"), *Property.Charge);
 			UE_LOG(LogTemp, Log, TEXT("Condition: %s"), *Property.Condition);
 		}
 	}

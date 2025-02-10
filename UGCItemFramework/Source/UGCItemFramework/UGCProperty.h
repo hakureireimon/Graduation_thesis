@@ -14,15 +14,11 @@ struct FUGCProperty
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Name;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	FString Type;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Description;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Icon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	TArray<FString> Effects;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	FString Charge;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString Condition;
 };

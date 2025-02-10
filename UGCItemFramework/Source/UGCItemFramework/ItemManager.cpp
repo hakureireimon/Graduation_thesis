@@ -73,31 +73,17 @@ uint32 AItemManager::GenerateRandomNumber()
 
 FUGCProperty AItemManager::GenerateRandomProperty()
 {
-	// undone Generate Random Property OneByOne and return
-	FString Type = "";
-	FString Charge = "";
 	FString Condition = "";
 	FString Effect = "";
 
 	uint32 RandomNumber = GenerateWithSeed();
-	if ((RandomNumber & 0x1) == 1)
-	{
-		Type = "Active";
-		Charge = LexToString((RandomNumber & 0x7) + 1);
-	}
-	else
-	{
-		Type = "Passive";
-		Condition = GetRandomCondition((RandomNumber & 0x7) + 1);
-	}
+	Condition = GetRandomCondition((RandomNumber & 0x7) + 1);
 	Effect = GetRandomEffect(RandomNumber & 0xf + 1);
 	FUGCProperty RandomProperty = FUGCProperty();
 	RandomProperty.Id = "-" + LexToString(++ErrorItemCount);
 	RandomProperty.Name = "Error Item";
-	RandomProperty.Type = Type;
 	RandomProperty.Description = "Error Item";
 	RandomProperty.Icon = "Error Item";
-	RandomProperty.Charge = Charge;
 	RandomProperty.Condition = Condition;
 	RandomProperty.Effects.Add(Effect);
 	return RandomProperty;
