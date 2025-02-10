@@ -9,7 +9,6 @@ class AEffectManager : public AActor
 {
 	GENERATED_BODY()
 public:
-	TMultiMap<FString, FString> ConditionAndEffectMap;
 	UFUNCTION(BlueprintCallable, Category = "EffectManager")
 	virtual void BeginPlay() override;
 	UFUNCTION(BlueprintCallable, Category = "EffectManager")

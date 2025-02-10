@@ -3,6 +3,8 @@
 #include "EffectLibrary.h"
 #include "Effector.h"
 
+TMultiMap<FString, FString> ConditionAndEffectMap;
+
 void AEffectManager::BeginPlay()
 {
 	Super::BeginPlay();
@@ -21,12 +23,25 @@ void AEffectManager::RegisterItem(AItem* Item)
 
 void AEffectManager::SendSignal(FString Signal)
 {
-	for(TMultiMap<FString, FString>::TIterator It(ConditionAndEffectMap); It; ++It)
+	TSet<FString> Keys;
+	if (ConditionAndEffectMap.GetKeys(Keys) > 0)
 	{
-		if (It.Key() == Signal)
+		for(auto& Key : Keys)
 		{
-			this->ApplyEffect(It.Value());
+			if (Key == Signal)
+			{
+				TArray<FString> Effects;
+				ConditionAndEffectMap.MultiFind(Key, Effects);
+				for(auto& Effect : Effects)
+				{
+					this->ApplyEffect(Effect);
+				}
+			}
 		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("SendSignal: ConditionAndEffectMap is empty"));
 	}
 }
 

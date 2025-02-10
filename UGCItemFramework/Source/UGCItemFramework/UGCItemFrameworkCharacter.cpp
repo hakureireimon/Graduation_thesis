@@ -12,6 +12,7 @@
 #include "DrawDebugHelpers.h"
 #include "ItemManager.h"
 #include "Kismet/GameplayStatics.h"
+#include "EffectManager.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AUGCItemFrameworkCharacter
@@ -56,6 +57,7 @@ void AUGCItemFrameworkCharacter::BeginPlay()
 	Super::BeginPlay();
 	FActorSpawnParameters SpawnParams;
 	GetWorld()->SpawnActor<AItemManager>(AItemManager::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+	GetWorld()->SpawnActor<AEffectManager>(AEffectManager::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
 	AItemManager* ItemManager = Cast<AItemManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AItemManager::StaticClass()));
 	if (ItemManager)
 	{

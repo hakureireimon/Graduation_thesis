@@ -41,7 +41,7 @@ AItem* AItemManager::GenerateErrorItem(FVector Location)
 	AItem* Item = World->SpawnActor<AItem>(AItem::StaticClass(), Location, FRotator::ZeroRotator);
 	Item->SetUGCProperty(GenerateRandomProperty());
 	AEffectManager* EffectManager = Cast<AEffectManager>(UGameplayStatics::GetActorOfClass(World, AEffectManager::StaticClass()));
-	EffectManager->SendSignal("OnGenerateItem");
+	EffectManager->SendSignal("ItemGenerated");
 	return Item;
 }
 
