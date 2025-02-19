@@ -9,6 +9,8 @@ class AEffectManager : public AActor, public IUnLuaInterface
 {
 	GENERATED_BODY()
 public:
+	virtual FString GetModuleName_Implementation() const override;
+	
 	UFUNCTION(BlueprintCallable, Category = "EffectManager")
 	virtual void BeginPlay() override;
 	UFUNCTION(BlueprintCallable, Category = "EffectManager")

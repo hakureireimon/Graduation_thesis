@@ -5,6 +5,11 @@
 
 TMultiMap<FString, FString> ConditionAndEffectMap;
 
+FString AEffectManager::GetModuleName_Implementation() const
+{
+	return TEXT("EffectManager_C");
+}
+
 void AEffectManager::BeginPlay()
 {
 	Super::BeginPlay();
