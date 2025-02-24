@@ -11,8 +11,7 @@ void AEffector::ApplyEffect(FString Effect)
 	{
 		this->ProcessEvent(Function, nullptr);
 	}
-
 	AEffectManager* EffectManager = Cast<AEffectManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AEffectManager::StaticClass()));
-	GetWorldTimerManager().SetTimerForNextTick([EffectManager](){EffectManager->SendSignal("ItemGenerated");});
+	GetWorldTimerManager().SetTimerForNextTick([EffectManager](){EffectManager->SendSignal("EffectTaken");});
 	this->Destroy();
 }
