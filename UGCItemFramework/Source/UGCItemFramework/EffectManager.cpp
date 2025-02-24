@@ -28,26 +28,29 @@ void AEffectManager::RegisterItem(AItem* Item)
 
 void AEffectManager::SendSignal(FString Signal)
 {
-	TSet<FString> Keys;
-	if (ConditionAndEffectMap.GetKeys(Keys) > 0)
+	GetWorldTimerManager().SetTimerForNextTick([this, Signal]()
 	{
-		for(auto& Key : Keys)
+		TSet<FString> Keys;
+		if (ConditionAndEffectMap.GetKeys(Keys) > 0)
 		{
-			if (Key == Signal)
+			for (auto& Key : Keys)
 			{
-				TArray<FString> Effects;
-				ConditionAndEffectMap.MultiFind(Key, Effects);
-				for(auto& Effect : Effects)
+				if (Key == Signal)
 				{
-					this->ApplyEffect(Effect);
+					TArray<FString> Effects;
+					ConditionAndEffectMap.MultiFind(Key, Effects);
+					for (auto& Effect : Effects)
+					{
+						this->ApplyEffect(Effect);
+					}
 				}
 			}
 		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("SendSignal: ConditionAndEffectMap is empty"));
-	}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("SendSignal: ConditionAndEffectMap is empty"));
+		}
+	});
 }
 
 void AEffectManager::ApplyEffect(FString Effect)
