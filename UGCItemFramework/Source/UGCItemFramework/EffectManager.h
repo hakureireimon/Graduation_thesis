@@ -19,4 +19,6 @@ public:
 	void SendSignal(FString Signal);
 	UFUNCTION(BlueprintCallable, Category = "EffectManager")
 	void ApplyEffect(FString Effect);
+	UFUNCTION(BlueprintCallable, Category = "EffectManager")
+	void TestUnLua();
 };

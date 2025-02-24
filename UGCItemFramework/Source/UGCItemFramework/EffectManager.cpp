@@ -55,3 +55,8 @@ void AEffectManager::ApplyEffect(FString Effect)
 	AEffector* Effector = GetWorld()->SpawnActor<AEffector>(AEffector::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
 	Effector->ApplyEffect(Effect);
 }
+
+void AEffectManager::TestUnLua()
+{
+	UE_LOG(LogTemp, Warning, TEXT("FromCpp"));
+}
