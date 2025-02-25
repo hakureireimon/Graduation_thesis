@@ -7,6 +7,8 @@
 #include "UnLuaInterface.h"
 #include "Item.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FItemEventDelegate, FString, Id);
+
 UCLASS()
 class AItem : public AActor, public IUnLuaInterface
 {
@@ -22,6 +24,12 @@ public:
 	USphereComponent* SphereComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
 	UStaticMeshComponent* MeshComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FItemEventDelegate EventOnItemPickedUp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FItemEventDelegate EventOnItemDropped;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FItemEventDelegate EventOnItemTriggered;
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void SetUGCProperty(FUGCProperty Property);

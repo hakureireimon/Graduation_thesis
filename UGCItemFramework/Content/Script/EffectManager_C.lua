@@ -10,4 +10,8 @@ function M:TestUnLua()
     print('Override Success')
 end
 
+function M:ReceiveEndPlay()
+    self:ClearMap()
+end
+
 return M

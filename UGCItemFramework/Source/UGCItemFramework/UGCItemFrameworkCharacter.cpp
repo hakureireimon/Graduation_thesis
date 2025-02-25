@@ -112,7 +112,7 @@ void AUGCItemFrameworkCharacter::SetupPlayerInputComponent(class UInputComponent
 
 	// PlayerInputComponent->BindAction("FKey", IE_Pressed, this, &AUGCItemFrameworkCharacter::OnFPressed);
 
-	PlayerInputComponent->BindAction("Bag", IE_Pressed, this, &AUGCItemFrameworkCharacter::ShowOrHideBag);
+	// PlayerInputComponent->BindAction("Bag", IE_Pressed, this, &AUGCItemFrameworkCharacter::ShowOrHideBag);
 }
 
 

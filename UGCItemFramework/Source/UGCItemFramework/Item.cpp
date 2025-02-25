@@ -7,12 +7,6 @@
 #include "EffectManager.h"
 #include "Kismet/GameplayStatics.h"
 
-DECLARE_MULTICAST_DELEGATE_OneParam(ItemEventDelegate, FString)
-
-ItemEventDelegate EventOnItemPickedUp;
-ItemEventDelegate EventOnItemDropped;
-ItemEventDelegate EventOnItemTriggered;
-
 AItem::AItem()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -60,9 +54,9 @@ void AItem::OnItemPickedUp(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 		{
 			EffectManager->RegisterItem(this);
 		}
-		Destroy();
-		
 		EventOnItemPickedUp.Broadcast(GetUGCProperty().Id);
+		
+		Destroy();
 	}
 }
 

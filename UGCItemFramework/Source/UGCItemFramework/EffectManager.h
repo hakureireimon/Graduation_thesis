@@ -21,4 +21,6 @@ public:
 	void ApplyEffect(FString Effect);
 	UFUNCTION()
 	void TestUnLua();
+	UFUNCTION(BlueprintCallable, Category = "EffectManager")
+	void ClearMap();
 };

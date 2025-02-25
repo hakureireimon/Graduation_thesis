@@ -63,3 +63,8 @@ void AEffectManager::TestUnLua()
 {
 	UE_LOG(LogTemp, Warning, TEXT("FromCpp"));
 }
+
+void AEffectManager::ClearMap()
+{
+	ConditionAndEffectMap.Empty();
+}
