@@ -13,6 +13,11 @@ AItemManager::AItemManager()
 	return;
 }
 
+FString AItemManager::GetModuleName_Implementation() const
+{
+	return TEXT("ItemManager_C");
+}
+
 void AItemManager::BeginPlay()
 {
 	Super::BeginPlay();

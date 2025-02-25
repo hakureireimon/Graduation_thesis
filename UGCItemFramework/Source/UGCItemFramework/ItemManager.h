@@ -6,7 +6,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemManagerCreated);
 
 UCLASS()
-class AItemManager : public AActor
+class AItemManager : public AActor, public IUnLuaInterface
 {
 	GENERATED_BODY()
 private:
@@ -18,6 +18,9 @@ public:
 	FOnItemManagerCreated OnItemManagerCreated;
 	
 	AItemManager();
+
+	virtual FString GetModuleName_Implementation() const override;
+	
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	virtual void BeginPlay() override;
 	UPROPERTY(BlueprintReadOnly, Category = "ItemManager")

@@ -33,6 +33,11 @@ AItem::AItem()
 	}
 }
 
+FString AItem::GetModuleName_Implementation() const
+{
+	return TEXT("Item_C");
+}
+
 void AItem::SetUGCProperty(FUGCProperty Property)
 {
 	UGCProperty = Property;

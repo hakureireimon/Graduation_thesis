@@ -4,14 +4,17 @@
 #include "GameFramework/Actor.h"
 #include "Components/SphereComponent.h"
 #include "UGCProperty.h"
+#include "UnLuaInterface.h"
 #include "Item.generated.h"
 
 UCLASS()
-class AItem : public AActor
+class AItem : public AActor, public IUnLuaInterface
 {
 	GENERATED_BODY()
 public:
 	AItem();
+
+	virtual FString GetModuleName_Implementation() const override;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category= "Item")
 	FUGCProperty UGCProperty;

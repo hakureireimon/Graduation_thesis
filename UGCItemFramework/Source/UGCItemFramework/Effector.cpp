@@ -3,6 +3,11 @@
 #include "EffectLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
+FString AEffector::GetModuleName_Implementation() const
+{
+	return TEXT("Effector_C");
+}
+
 void AEffector::ApplyEffect(FString Effect)
 {
 	UClass* Class = UEffectLibrary::StaticClass();

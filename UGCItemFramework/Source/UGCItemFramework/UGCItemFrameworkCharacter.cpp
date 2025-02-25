@@ -52,6 +52,11 @@ AUGCItemFrameworkCharacter::AUGCItemFrameworkCharacter()
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
+FString AUGCItemFrameworkCharacter::GetModuleName_Implementation() const
+{
+	return TEXT("UGCItemFrameworkCharacter_C");
+}
+
 void AUGCItemFrameworkCharacter::BeginPlay()
 {
 	Super::BeginPlay();

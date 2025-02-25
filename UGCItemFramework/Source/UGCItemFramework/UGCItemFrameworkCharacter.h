@@ -10,7 +10,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGenerateItemDelegate, FVector, Location);
 
 UCLASS(config=Game)
-class AUGCItemFrameworkCharacter : public ACharacter
+class AUGCItemFrameworkCharacter : public ACharacter, public IUnLuaInterface
 {
 	GENERATED_BODY()
 
@@ -23,6 +23,8 @@ class AUGCItemFrameworkCharacter : public ACharacter
 	class UCameraComponent* FollowCamera;
 public:
 	AUGCItemFrameworkCharacter();
+
+	virtual FString GetModuleName_Implementation() const override;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
