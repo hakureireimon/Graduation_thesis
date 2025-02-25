@@ -110,7 +110,7 @@ void AUGCItemFrameworkCharacter::SetupPlayerInputComponent(class UInputComponent
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AUGCItemFrameworkCharacter::OnResetVR);
 
-	PlayerInputComponent->BindAction("FKey", IE_Pressed, this, &AUGCItemFrameworkCharacter::OnFPressed);
+	// PlayerInputComponent->BindAction("FKey", IE_Pressed, this, &AUGCItemFrameworkCharacter::OnFPressed);
 
 	PlayerInputComponent->BindAction("Bag", IE_Pressed, this, &AUGCItemFrameworkCharacter::ShowOrHideBag);
 }
