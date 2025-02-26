@@ -7,7 +7,7 @@
 #include "UnLuaInterface.h"
 #include "Item.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FItemEventDelegate, FString, Id);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FItemEventDelegate, AActor*, OtherActor);
 
 UCLASS()
 class AItem : public AActor, public IUnLuaInterface
