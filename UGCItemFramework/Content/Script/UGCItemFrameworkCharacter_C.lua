@@ -9,7 +9,8 @@ function M:ReceiveBeginPlay()
 end
 
 function M:test()
-    print('UnLua bind delegate success')
+    local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
+    EffectManager:SendSignal('ItemGenerated', 666)
 end
 
 return M

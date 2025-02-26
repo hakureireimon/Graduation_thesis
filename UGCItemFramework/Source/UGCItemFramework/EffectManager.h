@@ -10,6 +10,8 @@ class AEffectManager : public AActor, public IUnLuaInterface
 	GENERATED_BODY()
 public:
 	virtual FString GetModuleName_Implementation() const override;
+
+	AEffectManager();
 	
 	UFUNCTION(BlueprintCallable, Category = "EffectManager")
 	virtual void BeginPlay() override;
@@ -19,8 +21,8 @@ public:
 	void SendSignal(FString Signal);
 	UFUNCTION(BlueprintCallable, Category = "EffectManager")
 	void ApplyEffect(FString Effect);
-	UFUNCTION()
-	void TestUnLua();
 	UFUNCTION(BlueprintCallable, Category = "EffectManager")
 	void ClearMap();
+	UFUNCTION(BlueprintCallable, Category = "EffectManager")
+	virtual void Tick(float DeltaTime) override;
 };
