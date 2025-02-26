@@ -38,7 +38,7 @@ void AEffectManager::SendSignal(FString Signal)
 				if (Key == Signal)
 				{
 					TArray<FString> Effects;
-					ConditionAndEffectMap.MultiFind(Key, Effects);
+					ConditionAndEffectMap.MultiFind(Key, Effects, true);
 					for (auto& Effect : Effects)
 					{
 						this->ApplyEffect(Effect);
