@@ -9,6 +9,7 @@
 ---@type JsonDeserializer_C
 local M = UnLua.Class()
 local rapidjson = require("rapidjson")
+require("LuaPanda").start("127.0.0.1", 8818);
 
 -- function M:Initialize(Initializer)
 -- end
