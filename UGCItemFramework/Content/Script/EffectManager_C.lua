@@ -1,5 +1,7 @@
 local M = UnLua.Class()
 
+require("LuaPanda").start("127.0.0.1", 8818);
+
 function M:ReceiveBeginPlay()
     self.ConditionAndEffectMap = {}
 end
@@ -22,8 +24,56 @@ function M:RegisterItem(item)
     end
 end
 
+local function split(str, delimiter)
+    local result = {}
+    for match in (str .. delimiter):gmatch("([^" .. delimiter .. "]+)") do
+        table.insert(result, match)
+    end
+    return result
+end
+
+local function parseParams(paramStrs)
+    local params = {}
+    for _, paramStr in ipairs(paramStrs) do
+        local keyValue = split(paramStr, ":")
+        if #keyValue == 2 then
+            local key = keyValue[1]
+            local value = keyValue[2]
+            params[key] = value
+        end
+    end
+    return params
+end
+
+local function mergeTables(t1, t2)
+    local merged = {}
+    for k, v in pairs(t1) do
+        merged[k] = v
+    end
+    for k, v in pairs(t2) do
+        merged[k] = v
+    end
+    return merged
+end
+
 function M:ApplyEffect(effect, params)
-    print('ApplyEffect:' .. effect, params)
+    print('ApplyEffect: ' .. effect, params)
+
+    local EffectLibrary = require("EffectLibrary_C")
+
+    local parts = split(effect, "-")
+
+    local effectFunctionName = table.remove(parts, 1)
+    local effectParams = parseParams(parts)
+    params = parseParams(params)
+    local effectFunction = EffectLibrary[effectFunctionName]
+    local finalParams = mergeTables(effectParams, params or {})
+
+    if effectFunction then
+        effectFunction(finalParams)
+    else
+        print("Effect not found: " .. effectFunctionName)
+    end
 end
 
 function M:SendSignal(signal, ...)

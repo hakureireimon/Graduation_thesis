@@ -10,7 +10,7 @@ end
 
 function M:test()
     local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
-    EffectManager:SendSignal('ItemGenerated', 666)
+    EffectManager:SendSignal('ItemGenerated', "extra:666")
 end
 
 return M
