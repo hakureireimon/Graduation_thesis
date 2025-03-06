@@ -9,10 +9,10 @@ local M = UnLua.Class()
 
 function M:Initialize()
     self.TextBlocks = {
-        self:FindWidget("ItemName"),
-        self:FindWidget("ItemDescription"),
-        self:FindWidget("ItemCondition"),
-        self:FindWidget("ItemEffects"),
+        self.ItemName,
+        self.ItemDiscription,
+        self.ItemCondition,
+        self.ItemEffects,
     }
 end
 
