@@ -16,7 +16,8 @@ AItem::AItem()
 	SphereComponent->InitSphereRadius(100.0f);
 	RootComponent = SphereComponent;
 	MeshComponent->SetupAttachment(RootComponent);
-	MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	MeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	MeshComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
 	SphereComponent->SetCollisionProfileName(TEXT("Trigger"));
 	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AItem::OnItemPickedUp);
 
