@@ -41,8 +41,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> ItemInfoDisplayer;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UUserWidget> Cross;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	UUserWidget* ItemInfoWidgetInstance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	UUserWidget* CrossInstance;
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void GenerateItemAtLocation(FVector Location);

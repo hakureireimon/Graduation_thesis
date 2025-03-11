@@ -56,6 +56,11 @@ AUGCItemFrameworkCharacter::AUGCItemFrameworkCharacter()
 	{
 		ItemInfoDisplayer = WidgetClassFinder.Class;
 	}
+	static ConstructorHelpers::FClassFinder<UUserWidget> CrossClass(TEXT("/Game/UGCItemFramework/Cross"));
+	if (CrossClass.Succeeded())
+	{
+		Cross = CrossClass.Class;
+	}
 }
 
 FString AUGCItemFrameworkCharacter::GetModuleName_Implementation() const
@@ -86,6 +91,11 @@ void AUGCItemFrameworkCharacter::BeginPlay()
 			ItemInfoWidgetInstance->AddToViewport();
 			ItemInfoWidgetInstance->SetVisibility(ESlateVisibility::Hidden);
 		}
+	}
+	CrossInstance = CreateWidget<UUserWidget>(GetWorld(), Cross);
+	if (CrossInstance)
+	{
+		CrossInstance->AddToViewport();
 	}
 }
 
