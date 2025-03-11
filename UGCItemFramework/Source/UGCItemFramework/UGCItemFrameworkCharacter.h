@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Item.h"
+#include "Blueprint/UserWidget.h"
 #include "UGCItemFrameworkCharacter.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGenerateItemDelegate, FVector, Location);
@@ -36,6 +37,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FGenerateItemDelegate OnGenerateItem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UUserWidget> ItemInfoDisplayer;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	UUserWidget* ItemInfoWidgetInstance;
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void GenerateItemAtLocation(FVector Location);

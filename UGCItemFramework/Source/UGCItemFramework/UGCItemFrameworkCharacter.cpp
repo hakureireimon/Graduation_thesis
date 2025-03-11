@@ -13,6 +13,7 @@
 #include "ItemManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "EffectManager.h"
+#include "Blueprint/UserWidget.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AUGCItemFrameworkCharacter
@@ -50,6 +51,11 @@ AUGCItemFrameworkCharacter::AUGCItemFrameworkCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+	static ConstructorHelpers::FClassFinder<UUserWidget> WidgetClassFinder(TEXT("/Game/UGCItemFramework/ItemInfoDisplayer"));
+	if (WidgetClassFinder.Succeeded())
+	{
+		ItemInfoDisplayer = WidgetClassFinder.Class;
+	}
 }
 
 FString AUGCItemFrameworkCharacter::GetModuleName_Implementation() const
@@ -69,6 +75,18 @@ void AUGCItemFrameworkCharacter::BeginPlay()
 		ItemManager->OnItemManagerCreated.AddDynamic(this, &AUGCItemFrameworkCharacter::OnItemManagerCreated);
 	}
 	ItemManager->OnItemManagerCreated.Broadcast();
+
+	
+	UUserWidget* UserWidget = CreateWidget<UUserWidget>(GetWorld(), ItemInfoDisplayer);
+	if (ItemInfoDisplayer)
+	{
+		ItemInfoWidgetInstance = CreateWidget<UUserWidget>(GetWorld(), ItemInfoDisplayer);
+		if (ItemInfoWidgetInstance)
+		{
+			ItemInfoWidgetInstance->AddToViewport();
+			ItemInfoWidgetInstance->SetVisibility(ESlateVisibility::Hidden);
+		}
+	}
 }
 
 void AUGCItemFrameworkCharacter::OnItemManagerCreated()
