@@ -9,6 +9,16 @@
                 "1" : "Test-origin:1"
             },
             "Condition" : "ItemGenerated"
+        },
+        {
+            "Id" : "2",
+            "Name" : "Flash",
+            "Description" : "冲刺！冲!",
+            "Icon" : "Flash.img",
+            "Effects" : {
+                "1" : "Flash-X:100-Y:100-Z:100"
+            },
+            "Condition" : "EPressed"
         }
     ]
 }

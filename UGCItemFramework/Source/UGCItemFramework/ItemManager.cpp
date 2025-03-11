@@ -83,7 +83,7 @@ FUGCProperty AItemManager::GenerateRandomProperty()
 
 	uint32 RandomNumber = GenerateWithSeed();
 	Condition = GetRandomCondition((RandomNumber & 0x7) + 1);
-	Effect = GetRandomEffect(RandomNumber & 0xf + 1);
+	Effect = GetRandomEffect((RandomNumber & 0xf) + 1);
 	FUGCProperty RandomProperty = FUGCProperty();
 	RandomProperty.Id = "-" + LexToString(++ErrorItemCount);
 	RandomProperty.Name = "Error Item";

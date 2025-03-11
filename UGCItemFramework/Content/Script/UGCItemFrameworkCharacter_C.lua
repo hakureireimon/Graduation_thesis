@@ -13,4 +13,9 @@ function M:test()
     EffectManager:SendSignal('ItemGenerated', "extra:666")
 end
 
+function M:OnEPressed()
+    local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
+    EffectManager:SendSignal('EPressed', "extra:666")
+end
+
 return M

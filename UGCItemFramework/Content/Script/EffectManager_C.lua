@@ -68,6 +68,7 @@ function M:ApplyEffect(effect, params)
     params = parseParams(params)
     local effectFunction = EffectLibrary[effectFunctionName]
     local finalParams = mergeTables(effectParams, params or {})
+    finalParams["character"] = UE.UGameplayStatics.GetPlayerCharacter(self:GetWorld(), 0)
 
     if effectFunction then
         effectFunction(finalParams)
