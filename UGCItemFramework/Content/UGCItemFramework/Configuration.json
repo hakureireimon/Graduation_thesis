@@ -39,6 +39,16 @@
                 "1" : "Chaos-angle:90"
             },
             "Condition" : "PositionChanged"
+        },
+        {
+            "Id" : "5",
+            "Name" : "Delay",
+            "Description" : "延迟",
+            "Icon" : "Delay.img",
+            "Effects" : {
+                "1" : "Delay-duration:1"
+            },
+            "Condition" : "Jump"
         }
     ]
 }

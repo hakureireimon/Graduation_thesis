@@ -55,4 +55,13 @@ function M.Chaos(params)
     end
 end
 
+function M.Delay(params)
+    if params["character"] and params["duration"] then
+        local Character = params["character"]
+        coroutine.resume(coroutine.create(function(WorldContextObject, Duration)
+            UE.UKismetSystemLibrary.Delay(WorldContextObject, Duration)
+        end), Character, params["duration"])
+    end
+end
+
 return M
