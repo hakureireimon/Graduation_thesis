@@ -16,7 +16,7 @@
             "Description" : "冲刺！冲!",
             "Icon" : "Flash.img",
             "Effects" : {
-                "1" : "Flash-X:100-Y:100-Z:100"
+                "1" : "Flash-distance:200"
             },
             "Condition" : "EPressed"
         },

@@ -10,11 +10,17 @@ function M.Test(params)
 end
 
 function M.Flash(params)
-    if params["character"] and params["X"] and params["Y"] and params["Z"] then
-
+    if params["character"] and params["distance"] then
         local Character = params["character"]
+        local FollowCamera = Character.FollowCamera
+        if not FollowCamera then
+            print("Follow Camera not found!")
+            return
+        end
         local CurrentLocation = Character:K2_GetActorLocation()
-        local NewLocation = CurrentLocation + UE.FVector(params["X"], params["Y"], params["Z"])
+        local ForwardVector = FollowCamera:GetForwardVector()
+        local Distance = tonumber(params["distance"])
+        local NewLocation = CurrentLocation + ForwardVector * Distance
 
         Character:K2_SetActorLocation(NewLocation, false, nil, true)
     end
