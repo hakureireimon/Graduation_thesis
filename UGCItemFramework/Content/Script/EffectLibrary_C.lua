@@ -20,4 +20,14 @@ function M.Flash(params)
     end
 end
 
+function M.Reverse(params)
+    if params["character"] then
+        local Character = params["character"]
+        local LuaCharacter = require("UGCItemFrameworkCharacter_C")
+        local Location = LuaCharacter:GetReversedPosition()
+
+        Character:K2_SetActorLocation(Location, false, nil, true)
+    end
+end
+
 return M

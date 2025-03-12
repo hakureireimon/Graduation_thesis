@@ -19,6 +19,16 @@
                 "1" : "Flash-X:100-Y:100-Z:100"
             },
             "Condition" : "EPressed"
+        },
+        {
+            "Id" : "3",
+            "Name" : "Z-Driver",
+            "Description" : "两极反转！",
+            "Icon" : "Z-Driver.img",
+            "Effects" : {
+                "1" : "Reverse"
+            },
+            "Condition" : "RPressed"
         }
     ]
 }
