@@ -18,6 +18,7 @@ public:
 	FOnItemManagerCreated OnItemManagerCreated;
 	
 	AItemManager();
+	~AItemManager();
 
 	virtual FString GetModuleName_Implementation() const override;
 	

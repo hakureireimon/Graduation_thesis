@@ -10,7 +10,34 @@ AItemManager::AItemManager()
 	ErrorItemCount = 0;
 	Seed = 0;
 	RandActionCount = 0;
+	IConsoleManager::Get().RegisterConsoleCommand(
+		TEXT("SetSeed"),
+		TEXT("Reroll Your Destiny"),
+		FConsoleCommandWithArgsDelegate::CreateLambda([this](const TArray<FString>& Args)
+		{
+			if (Args.Num() > 0)
+			{
+				Seed = FCString::Atoi(*Args[0]);
+			}
+		}),
+		ECVF_Default
+		);
+	IConsoleManager::Get().RegisterConsoleCommand(
+		TEXT("Seed"),
+		TEXT("Get Seed"),
+		FConsoleCommandWithArgsDelegate::CreateLambda([this](const TArray<FString>& Args)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Seed: %d"), Seed);
+		}),
+		ECVF_Default
+		);
 	return;
+}
+
+AItemManager::~AItemManager()
+{
+	IConsoleManager::Get().UnregisterConsoleObject(TEXT("Seed"));
+	IConsoleManager::Get().UnregisterConsoleObject(TEXT("SetSeed"));
 }
 
 FString AItemManager::GetModuleName_Implementation() const
