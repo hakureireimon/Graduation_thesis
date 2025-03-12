@@ -28,7 +28,17 @@
             "Effects" : {
                 "1" : "Reverse"
             },
-            "Condition" : "RPressed"
+            "Condition" : "AngleChanged"
+        },
+        {
+            "Id" : "4",
+            "Name" : "Chaos",
+            "Description" : "混乱！",
+            "Icon" : "Chaos.img",
+            "Effects" : {
+                "1" : "Chaos-angle:90"
+            },
+            "Condition" : "PositionChanged"
         }
     ]
 }

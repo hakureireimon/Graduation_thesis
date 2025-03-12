@@ -12,6 +12,10 @@ BindKey(M, "R", "Pressed", function(self)
     local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
     EffectManager:SendSignal('RPressed', "extra:666")
 end)
+BindKey(M, "SpaceBar", "Pressed", function(self)
+    local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
+    EffectManager:SendSignal('jump', "extra:666")
+end)
 
 local ReversedLocation = UE.FVector(0, 0, 0)
 

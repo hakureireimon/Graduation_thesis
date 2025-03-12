@@ -23,6 +23,8 @@ function M.Flash(params)
         local NewLocation = CurrentLocation + ForwardVector * Distance
 
         Character:K2_SetActorLocation(NewLocation, false, nil, true)
+        local EffectManager = UE.UGameplayStatics.GetActorOfClass(Character:GetWorld(), UE.AEffectManager)
+        EffectManager:SendSignal('PositionChanged', "extra:666")
     end
 end
 
@@ -33,6 +35,23 @@ function M.Reverse(params)
         local Location = LuaCharacter:GetReversedPosition()
 
         Character:K2_SetActorLocation(Location, false, nil, true)
+        local EffectManager = UE.UGameplayStatics.GetActorOfClass(Character:GetWorld(), UE.AEffectManager)
+        EffectManager:SendSignal('PositionChanged', "extra:666")
+    end
+end
+
+function M.Chaos(params)
+    if params["character"] and params["angle"] then
+        local Character = params["character"]
+        local Angle = params["angle"]
+
+        local CurrentRotation = Character:K2_GetActorRotation()
+
+        local NewRotation = UE.FRotator(CurrentRotation.Pitch, CurrentRotation.Yaw + Angle, CurrentRotation.Roll)
+
+        Character:K2_SetActorRotation(NewRotation, false)
+        local EffectManager = UE.UGameplayStatics.GetActorOfClass(Character:GetWorld(), UE.AEffectManager)
+        EffectManager:SendSignal('AngleChanged', "extra:666")
     end
 end
 
