@@ -36,7 +36,10 @@ public:
 	float BaseLookUpRate;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-	FGenerateItemDelegate OnGenerateItem;
+	FGenerateItemDelegate OnGenerateErrorItem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FGenerateItemDelegate OnGenerateNormalItem;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UUserWidget> ItemInfoDisplayer;
@@ -51,10 +54,16 @@ public:
 	UUserWidget* CrossInstance;
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
-	void GenerateItemAtLocation(FVector Location);
+	void GenerateErrorItemAtLocation(FVector Location);
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void GenerateNormalItemAtLocation(FVector Location);
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void OnFPressed();
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void OnQPressed();
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	bool GetLookAtLocation(FVector& LookAtLocation);

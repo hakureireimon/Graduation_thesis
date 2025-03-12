@@ -25,19 +25,25 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	virtual void BeginPlay() override;
 	UPROPERTY(BlueprintReadOnly, Category = "ItemManager")
-	TArray<AItem*> ItemPool;
+	TArray<FUGCProperty> ItemPool;
 	UPROPERTY(BlueprintReadOnly, Category = "ItemManager")
 	TArray<FString> Conditions;
 	UPROPERTY(BlueprintReadOnly, Category = "ItemManager")
 	TArray<FString> Effects;
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
-	void AddItemToPool(AItem* Item);
+	void AddItemToPool(FString Id, FString Name, FString Description, FString Icon, TArray<FString> Effect, FString Condition);
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	AItem* GenerateErrorItem(FVector Location);
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
-	void OnGenerateItemTriggered(FVector Location);
+	AItem* GenerateNormalItem(FVector Location);
+	UFUNCTION(BlueprintCallable, Category = "ItemManager")
+	void OnGenerateErrorItemTriggered(FVector Location);
+	UFUNCTION(BlueprintCallable, Category = "ItemManager")
+	void OnGenerateNormalItemTriggered(FVector Location);
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	FUGCProperty GenerateRandomProperty();
+	UFUNCTION(BlueprintCallable, Category = "ItemManager")
+	FUGCProperty GenerateNormalProperty();
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")
 	void AddEffect(FString Effect);
 	UFUNCTION(BlueprintCallable, Category = "ItemManager")

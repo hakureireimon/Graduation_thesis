@@ -104,7 +104,8 @@ void AUGCItemFrameworkCharacter::OnItemManagerCreated()
 	AItemManager* ItemManager = Cast<AItemManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AItemManager::StaticClass()));
 	if (ItemManager)
 	{
-		OnGenerateItem.AddDynamic(ItemManager, &AItemManager::OnGenerateItemTriggered);
+		OnGenerateErrorItem.AddDynamic(ItemManager, &AItemManager::OnGenerateErrorItemTriggered);
+		OnGenerateNormalItem.AddDynamic(ItemManager, &AItemManager::OnGenerateNormalItemTriggered);
 	}
 	UE_LOG(LogTemp, Warning, TEXT("ItemManager has been created and bound to Character."));
 }
@@ -211,13 +212,27 @@ void AUGCItemFrameworkCharacter::OnFPressed()
 	FVector LookAtLocation;
 	if (GetLookAtLocation(LookAtLocation))
 	{
-		GenerateItemAtLocation(LookAtLocation);
+		GenerateErrorItemAtLocation(LookAtLocation);
 	}
 }
 
-void AUGCItemFrameworkCharacter::GenerateItemAtLocation(FVector Location)
+void AUGCItemFrameworkCharacter::OnQPressed()
 {
-	OnGenerateItem.Broadcast(Location);
+	FVector LookAtLocation;
+	if (GetLookAtLocation(LookAtLocation))
+	{
+		GenerateNormalItemAtLocation(LookAtLocation);
+	}
+}
+
+void AUGCItemFrameworkCharacter::GenerateErrorItemAtLocation(FVector Location)
+{
+	OnGenerateErrorItem.Broadcast(Location);
+}
+
+void AUGCItemFrameworkCharacter::GenerateNormalItemAtLocation(FVector Location)
+{
+	OnGenerateNormalItem.Broadcast(Location);
 }
 
 bool AUGCItemFrameworkCharacter::GetLookAtLocation(FVector& OutLookAtLocation)

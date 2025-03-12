@@ -56,10 +56,16 @@ void AItemManager::BeginPlay()
 	}
 }
 
-void AItemManager::AddItemToPool(AItem* Item)
+void AItemManager::AddItemToPool(FString Id, FString Name, FString Description, FString Icon, TArray<FString> Effect, FString Condition)
 {
-	ItemPool.Add(Item);
-	return;
+	FUGCProperty Property;
+	Property.Id = Id;
+	Property.Name = Name;
+	Property.Description = Description;
+	Property.Icon = Icon;
+	Property.Effects = Effect;
+	Property.Condition = Condition;
+	ItemPool.Add(Property);
 }
 
 AItem* AItemManager::GenerateErrorItem(FVector Location)
@@ -77,13 +83,28 @@ AItem* AItemManager::GenerateErrorItem(FVector Location)
 	return Item;
 }
 
-void AItemManager::OnGenerateItemTriggered(FVector Location)
+AItem* AItemManager::GenerateNormalItem(FVector Location)
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return nullptr;
+	}
+	AItem* Item = World->SpawnActor<AItem>(AItem::StaticClass(), Location, FRotator::ZeroRotator);
+	Item->SetUGCProperty(GenerateNormalProperty());
+	AEffectManager* EffectManager = Cast<AEffectManager>(UGameplayStatics::GetActorOfClass(World, AEffectManager::StaticClass()));
+	EffectManager->SendSignal("ItemGenerated");
+	return Item;
+}
+
+void AItemManager::OnGenerateErrorItemTriggered(FVector Location)
 {
 	AItem* NewItem = GenerateErrorItem(Location);
-	if (NewItem)
-	{
-		AddItemToPool(NewItem);
-	}
+}
+
+void AItemManager::OnGenerateNormalItemTriggered(FVector Location)
+{
+	GenerateNormalItem(Location);
 }
 
 uint32 AItemManager::GenerateWithSeed()
@@ -126,6 +147,11 @@ FUGCProperty AItemManager::GenerateRandomProperty()
 		Probability *= 0.5f;
 	}
 	return RandomProperty;
+}
+
+FUGCProperty AItemManager::GenerateNormalProperty()
+{
+	return ItemPool[GenerateWithSeed() % ItemPool.Num()];
 }
 
 FString AItemManager::GetRandomCondition(uint32 RandNumber)

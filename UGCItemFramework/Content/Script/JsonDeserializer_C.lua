@@ -32,7 +32,7 @@ function AddItemToPool(Id, Name, Description, Icon, Effects, Condition)
     Item.Icon = Icon
     Item.Effects = Effects
     Item.Condition = Condition
-    ItemPool[Id] = Item
+    ItemPool[tonumber(Id)] = Item
 end
 
 local itemManagerClass = UE.AItemManager
@@ -50,6 +50,17 @@ function M:OnItemManagerCreated()
         for _, Condition in pairs(ConditionList) do
             print("Adding Condition: ", Condition)
             itemManagerInstance:AddCondition(Condition)
+        end
+        for i=1, #ItemPool do
+            local Item = ItemPool[i]
+            local Id = Item.Id
+            local Name = Item.Name
+            local Description = Item.Description
+            local Icon = Item.Icon
+            local Effects = Item.Effects
+            local Condition = Item.Condition
+            print("Adding Item: ", Id, Name, Description, Icon, Effects, Condition)
+            itemManagerInstance:AddItemToPool(Id, Name, Description, Icon, Effects, Condition)
         end
     else
         print("AItemManager instance not found")

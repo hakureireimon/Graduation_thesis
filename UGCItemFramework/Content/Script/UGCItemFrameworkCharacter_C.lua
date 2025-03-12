@@ -16,11 +16,11 @@ BindKey(M, "SpaceBar", "Pressed", function(self)
     local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
     EffectManager:SendSignal('jump', "extra:666")
 end)
+BindKey(M, "Q", "Pressed", UE.AUGCItemFrameworkCharacter.OnQPressed)
 
 local ReversedLocation = UE.FVector(0, 0, 0)
 
 function M:ReceiveBeginPlay()
-    self.OnGenerateItem:Add(self, self.test)
     self.PositionRecord = {}
     self.AccumulateTime = 0
 end
