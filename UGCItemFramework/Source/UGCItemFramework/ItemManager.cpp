@@ -17,7 +17,7 @@ AItemManager::AItemManager()
 		{
 			if (Args.Num() > 0)
 			{
-				Seed = FCString::Atoi(*Args[0]);
+				Seed = FCString::Atoi(*Args[0]) & 0x7FFFFFFF;
 			}
 		}),
 		ECVF_Default
