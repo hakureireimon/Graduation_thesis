@@ -118,6 +118,13 @@ FUGCProperty AItemManager::GenerateRandomProperty()
 	RandomProperty.Icon = "Error Item";
 	RandomProperty.Condition = Condition;
 	RandomProperty.Effects.Add(Effect);
+	float Probability = 0.25f;
+	while (FMath::FRand() < Probability)
+	{
+		Effect = GetRandomEffect((GenerateWithSeed() & 0xf) + 1);
+		RandomProperty.Effects.Add(Effect);
+		Probability *= 0.5f;
+	}
 	return RandomProperty;
 }
 
