@@ -3,7 +3,8 @@ local M = UnLua.Class()
 require("LuaPanda").start("127.0.0.1", 8818);
 
 function M:ReceiveBeginPlay()
-    self.ConditionAndEffectMap = {}
+    -- self.ConditionAndEffectMap = {}
+    self.ItemEffectMap = {}
 end
 
 function M:ReceiveEndPlay()
@@ -11,14 +12,29 @@ function M:ReceiveEndPlay()
 end
 
 function M:RegisterItem(item)
+    -- if item then
+    --     local Properties = item:GetUGCProperty()
+    --     for _, effect in pairs(Properties.Effects) do
+    --         if not self.ConditionAndEffectMap[Properties.Condition] then
+    --             self.ConditionAndEffectMap[Properties.Condition] = {}
+    --         end
+    --         table.insert(self.ConditionAndEffectMap[Properties.Condition], effect)
+    --     end
+    -- else
+    --     print("RegisterItem: item is nil")
+    -- end
     if item then
         local Properties = item:GetUGCProperty()
-        for _, effect in pairs(Properties.Effects) do
-            if not self.ConditionAndEffectMap[Properties.Condition] then
-                self.ConditionAndEffectMap[Properties.Condition] = {}
-            end
-            table.insert(self.ConditionAndEffectMap[Properties.Condition], effect)
+        local Effects = Properties.Effects
+        local PackedEffects = {}
+        for i=1, Effects:Length() do
+            table.insert(PackedEffects, Effects[i])
         end
+        table.insert(self.ItemEffectMap, {
+            Id = Properties.Id,
+            Condition = Properties.Condition,
+            Effects = PackedEffects
+        })
     else
         print("RegisterItem: item is nil")
     end
@@ -77,21 +93,39 @@ function M:ApplyEffect(effect, params)
     end
 end
 
+function M:ExecuteItemEffects(effects, params)
+    if effects then
+        for _, effect in ipairs(effects) do
+            self:ApplyEffect(effect, params)
+        end
+    else
+        print("ExecuteItemEffects: Item data is nil")
+    end
+end
+
 function M:SendSignal(signal, ...)
     local params = {...}
 
+    -- coroutine.resume(coroutine.create(function(WorldContextObject, duration)
+    --     UE.UKismetSystemLibrary.Delay(WorldContextObject, duration)
+    --     if next(self.ConditionAndEffectMap) ~= nil then
+    --         for condition, effects in pairs(self.ConditionAndEffectMap) do
+    --             if condition == signal then
+    --                 for _, effect in ipairs(effects) do
+    --                     self:ApplyEffect(effect, params)
+    --                 end
+    --             end
+    --         end
+    --     else
+    --         print("SendSignal: ConditionAndEffectMap is empty")
+    --     end
+    -- end), self, 0.016)
     coroutine.resume(coroutine.create(function(WorldContextObject, duration)
         UE.UKismetSystemLibrary.Delay(WorldContextObject, duration)
-        if next(self.ConditionAndEffectMap) ~= nil then
-            for condition, effects in pairs(self.ConditionAndEffectMap) do
-                if condition == signal then
-                    for _, effect in ipairs(effects) do
-                        self:ApplyEffect(effect, params)
-                    end
-                end
+        for _, itemData in ipairs(self.ItemEffectMap) do
+            if itemData.Condition == signal then
+                self:ExecuteItemEffects(itemData.Effects, params)
             end
-        else
-            print("SendSignal: ConditionAndEffectMap is empty")
         end
     end), self, 0.016)
 end
