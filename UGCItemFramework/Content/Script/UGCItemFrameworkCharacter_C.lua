@@ -3,6 +3,10 @@ local BindKey = UnLua.Input.BindKey
 require("LuaPanda").start("127.0.0.1", 8818);
 
 BindKey(M, "F", "Pressed", UE.AUGCItemFrameworkCharacter.OnFPressed)
+BindKey(M, "F", "Pressed", function(self)
+    local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
+    EffectManager:SendSignal('ItemGenerated', "extra:666")
+end)
 BindKey(M, "B", "Pressed", UE.AUGCItemFrameworkCharacter.ShowOrHideBag)
 BindKey(M, "E", "Pressed", function(self)
     local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
@@ -14,9 +18,13 @@ BindKey(M, "R", "Pressed", function(self)
 end)
 BindKey(M, "SpaceBar", "Pressed", function(self)
     local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
-    EffectManager:SendSignal('jump', "extra:666")
+    EffectManager:SendSignal('Jump', "extra:666")
 end)
 BindKey(M, "Q", "Pressed", UE.AUGCItemFrameworkCharacter.OnQPressed)
+BindKey(M, "Q", "Pressed", function(self)
+    local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
+    EffectManager:SendSignal('ItemGenerated', "extra:666")
+end)
 
 local ReversedLocation = UE.FVector(0, 0, 0)
 

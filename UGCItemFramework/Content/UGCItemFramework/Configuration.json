@@ -5,9 +5,9 @@
             "Name" : "TMTrainer",
             "Description" : "锟斤拷烫烫烫烫烫烫烫烫烫",
             "Icon" : "TMTrainer.img",
-            "Effects" : {
-                "1" : "Test-origin:1"
-            },
+            "Effects" : [
+                "Test-origin:1"
+            ],
             "Condition" : "ItemGenerated"
         },
         {
@@ -15,9 +15,9 @@
             "Name" : "Flash",
             "Description" : "冲刺！冲!",
             "Icon" : "Flash.img",
-            "Effects" : {
-                "1" : "Flash-distance:200"
-            },
+            "Effects" : [
+                "Flash-distance:200"
+            ],
             "Condition" : "EPressed"
         },
         {
@@ -25,9 +25,9 @@
             "Name" : "Z-Driver",
             "Description" : "两极反转！",
             "Icon" : "Z-Driver.img",
-            "Effects" : {
-                "1" : "Reverse"
-            },
+            "Effects" : [
+                "Reverse"
+            ],
             "Condition" : "AngleChanged"
         },
         {
@@ -35,9 +35,9 @@
             "Name" : "Chaos",
             "Description" : "混乱！",
             "Icon" : "Chaos.img",
-            "Effects" : {
-                "1" : "Chaos-angle:90"
-            },
+            "Effects" : [
+                "Chaos-angle:90"
+            ],
             "Condition" : "PositionChanged"
         },
         {
@@ -45,10 +45,22 @@
             "Name" : "Delay",
             "Description" : "延迟",
             "Icon" : "Delay.img",
-            "Effects" : {
-                "1" : "Delay-duration:1"
-            },
+            "Effects" : [
+                "Delay-duration:1"
+            ],
             "Condition" : "Jump"
+        },
+        {
+            "Id" : "6",
+            "Name" : "Strafe",
+            "Description" : "侧移",
+            "Icon" : "Strafe.img",
+            "Effects" : [
+                "Flash-distance:200",
+                "Delay-duration:1",
+                "Chaos-angle:90"
+            ],
+            "Condition" : "RPressed"
         }
     ]
 }

@@ -60,7 +60,7 @@ function M.Delay(params)
         local Character = params["character"]
         coroutine.resume(coroutine.create(function(WorldContextObject, Duration)
             UE.UKismetSystemLibrary.Delay(WorldContextObject, Duration)
-        end), Character, params["duration"])
+        end), Character, tonumber(params["duration"]))
     end
 end
 
