@@ -95,9 +95,11 @@ end
 
 function M:ExecuteItemEffects(effects, params)
     if effects then
-        for _, effect in ipairs(effects) do
-            self:ApplyEffect(effect, params)
-        end
+        coroutine.resume(coroutine.create(function()
+            for _, effect in ipairs(effects) do
+                self:ApplyEffect(effect, params)
+            end
+        end))
     else
         print("ExecuteItemEffects: Item data is nil")
     end
