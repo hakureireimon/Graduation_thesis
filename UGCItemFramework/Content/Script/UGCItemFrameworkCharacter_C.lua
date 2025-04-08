@@ -25,6 +25,10 @@ BindKey(M, "Q", "Pressed", function(self)
     local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
     EffectManager:SendSignal('ItemGenerated', "extra:666")
 end)
+BindKey(M, "C", "Pressed", function(self)
+    local EffectManager = UE.UGameplayStatics.GetActorOfClass(self:GetWorld(), UE.AEffectManager)
+    EffectManager:SendSignal('CPressed', "extra:666")
+end)
 
 local ReversedLocation = UE.FVector(0, 0, 0)
 

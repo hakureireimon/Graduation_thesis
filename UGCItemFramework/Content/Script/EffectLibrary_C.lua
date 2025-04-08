@@ -1,5 +1,27 @@
 local M = UnLua.Class()
 
+require("LuaPanda").start("127.0.0.1", 8818);
+
+function M.Initialize()
+    local RelativePath = debug.getinfo(1, "S").source
+    local TargetPath = string.gsub(RelativePath, "Content/Script/EffectLibrary_C", "Module/Custom_Functions")
+    M.LoadPlayerFunctions(TargetPath)
+end
+
+function M.LoadPlayerFunctions(filePath)
+    local playerFunctions = dofile(filePath)
+    if type(playerFunctions) == "table" then
+        for k, v in pairs(playerFunctions) do
+            if type(v) == "function" then
+                M[k] = v
+                print("Add Custom Effect:", k)
+            end
+        end
+    else
+        print("Player-provided file does not return a table of functions")
+    end
+end
+
 function M.Test(params)
     if params["origin"] then
         print(params["origin"])

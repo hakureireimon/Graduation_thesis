@@ -1,0 +1,14 @@
+{
+    "Items" : [
+        {
+            "Id" : "1",
+            "Name" : "CustomItem",
+            "Description" : "Just For Test",
+            "Icon" : "CustomItem.img",
+            "Effects" : [
+                "CustomFunction-message:success"
+            ],
+            "Condition" : "CPressed"
+        }
+    ]
+}

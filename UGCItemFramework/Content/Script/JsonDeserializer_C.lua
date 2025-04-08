@@ -32,7 +32,7 @@ function AddItemToPool(Id, Name, Description, Icon, Effects, Condition)
     Item.Icon = Icon
     Item.Effects = Effects
     Item.Condition = Condition
-    ItemPool[tonumber(Id)] = Item
+    ItemPool[#ItemPool+1] = Item
 end
 
 local itemManagerClass = UE.AItemManager
@@ -82,8 +82,6 @@ function M:DelayFunc(duration)
 end
 
 function M:ReceiveBeginPlay()
-    self:CheckForItemManager()
-
     local JsonData = io.open(TargetPath, "r")
     if JsonData then
         local JsonString = JsonData:read("*a")
@@ -115,6 +113,45 @@ function M:ReceiveBeginPlay()
             end
         end
     end
+
+    TargetPath = string.gsub(RelativePath, "Content/Script/JsonDeserializer_C.lua", "Module/UserConfig.json")
+    local UserJsonData = io.open(TargetPath, "r")
+    if UserJsonData then
+        local UserJsonString = UserJsonData:read("*a")
+        UserJsonData:close()
+
+        local userData, err = rapidjson.decode(UserJsonString)
+        if err then
+            print("Error parsing user JSON:", err)
+            return
+        end
+
+        if userData.Items and #userData.Items > 0 then
+            for _, Item in ipairs(userData.Items) do
+                Item.Id = "99" .. Item.Id
+            end
+
+            for _, Item in ipairs(userData.Items) do
+                local Id = Item.Id
+                local Name = Item.Name
+                local Description = Item.Description
+                local Icon = Item.Icon
+                local Effects = Item.Effects
+                local Condition = Item.Condition
+                AddItemToPool(Id, Name, Description, Icon, Effects, Condition)
+                for _, value in pairs(Effects) do
+                    if not EffectsList[value] then
+                        table.insert(EffectsList, value)
+                    end
+                end
+                if not ConditionList[Condition] then
+                    table.insert(ConditionList, Condition)
+                end
+            end
+        end
+    end
+
+    self:CheckForItemManager()
 end
 
 -- function M:ReceiveEndPlay()
