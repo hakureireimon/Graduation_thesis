@@ -107,21 +107,6 @@ end
 
 function M:SendSignal(signal, ...)
     local params = {...}
-
-    -- coroutine.resume(coroutine.create(function(WorldContextObject, duration)
-    --     UE.UKismetSystemLibrary.Delay(WorldContextObject, duration)
-    --     if next(self.ConditionAndEffectMap) ~= nil then
-    --         for condition, effects in pairs(self.ConditionAndEffectMap) do
-    --             if condition == signal then
-    --                 for _, effect in ipairs(effects) do
-    --                     self:ApplyEffect(effect, params)
-    --                 end
-    --             end
-    --         end
-    --     else
-    --         print("SendSignal: ConditionAndEffectMap is empty")
-    --     end
-    -- end), self, 0.016)
     coroutine.resume(coroutine.create(function(WorldContextObject, duration)
         UE.UKismetSystemLibrary.Delay(WorldContextObject, duration)
         for _, itemData in ipairs(self.ItemEffectMap) do
