@@ -45,20 +45,6 @@ FUGCProperty AItem::GetUGCProperty()
 
 void AItem::OnItemPickedUp(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	// AUGCItemFrameworkCharacter* Character = Cast<AUGCItemFrameworkCharacter>(OtherActor);
-	// if (Character)
-	// {
-	// 	Character->AddItemToInventory(this);
-	//
-	// 	AEffectManager* EffectManager = Cast<AEffectManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AEffectManager::StaticClass()));
-	// 	if (EffectManager)
-	// 	{
-	// 		EffectManager->RegisterItem(this);
-	// 	}
-	// 	EventOnItemPickedUp.Broadcast(OtherActor);
-	// 	
-	// 	Destroy();
-	// }
 	EventOnItemPickedUp.Broadcast(OtherActor);
 }
 

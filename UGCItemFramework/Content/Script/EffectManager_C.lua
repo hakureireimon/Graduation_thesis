@@ -12,17 +12,6 @@ function M:ReceiveEndPlay()
 end
 
 function M:RegisterItem(item)
-    -- if item then
-    --     local Properties = item:GetUGCProperty()
-    --     for _, effect in pairs(Properties.Effects) do
-    --         if not self.ConditionAndEffectMap[Properties.Condition] then
-    --             self.ConditionAndEffectMap[Properties.Condition] = {}
-    --         end
-    --         table.insert(self.ConditionAndEffectMap[Properties.Condition], effect)
-    --     end
-    -- else
-    --     print("RegisterItem: item is nil")
-    -- end
     if item then
         local Properties = item:GetUGCProperty()
         local Effects = Properties.Effects
